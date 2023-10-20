@@ -5,6 +5,7 @@
 - Contient une librarie d'icone [Lucide react](https://lucide.dev/)
 - Contient prettier avec un configuration de base ainsi qu'un plugin Tailwindcss pour formatter les classes Tailwindcss
 - Contient également eslint avec une configuration de base
+- Contient une librairie de composant React : Shadcn ui. Les composants se trouve dans le repertoire App/components/ui [Shadcn](https://ui.shadcn.com/)
 - Contient une bdd Prisma avec 2 entités de base User et Post
   - Lancer une migration après une modification des schemas :
 ```bash
