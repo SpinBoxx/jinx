@@ -15,4 +15,21 @@ model User {
   email String  @unique
   username  String
   password String
+
+  meetings Meeting[]
+}
+
+
+model Meeting {
+  id    Int     @id @default(autoincrement())
+
+  title String
+  description String 
+  participants  Int
+  createdAt DateTime @default(now())
+  when DateTime
+  shareLink String @unique
+ 
+  creator User @relation(fields: [creatorId], references: [id])
+  creatorId Int
 }

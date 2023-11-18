@@ -4,12 +4,14 @@ import CardStats from "@/components/cards/stats-card";
 import { Gauge, LineChart, Plus, PlusCircle, TrendingUp } from "lucide-react";
 import { Button, Chip, Link } from "@nextui-org/react";
 import CardMeeting from "@/components/cards/meeting-card";
+import prismadb from "@/lib/prismadb";
 
 export const metadata: Metadata = {
   title: "Jinx",
 };
 
-export default function Home() {
+export default async function Home() {
+  const meetings = await prismadb.meeting.findMany();
   return (
     <div className="space-y-8 pb-20">
       <section id="header" className="w-full space-y-4">
@@ -51,11 +53,9 @@ export default function Home() {
           </span>
           <span className="text-sm font-medium text-blue-500">Voir tout</span>
         </div>
-        <CardMeeting />
-        <CardMeeting />
-        <CardMeeting />
-        <CardMeeting />
-        <CardMeeting />
+        {meetings.map((meeting) => (
+          <CardMeeting props={{ meeting }} />
+        ))}
       </section>
       <div className="fixed inset-x-0 bottom-4 px-6">
         <Link href="/ajouter-une-reunion" className="w-full hover:!opacity-95">
