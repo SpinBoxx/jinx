@@ -44,7 +44,7 @@ export default function Navbar() {
   ];
 
   return (
-    <_Navbar disableAnimation isBordered className="w-full" maxWidth="2xl">
+    <_Navbar isBordered className="w-full" maxWidth="2xl">
       <NavbarContent className="sm:hidden" justify="start">
         <NavbarMenuToggle />
       </NavbarContent>
@@ -60,11 +60,13 @@ export default function Navbar() {
 
       <NavbarContent className="hidden gap-4 sm:flex" justify="center">
         <NavbarBrand>
-          <Image alt="Jinx logo" width={20} height={20} src="/logo.png" />
-          <p className="font-bold text-inherit">inx</p>
+          <Link href="/">
+            <Image alt="Jinx logo" width={20} height={20} src="/logo.png" />
+            <p className="font-bold text-inherit">inx</p>
+          </Link>
         </NavbarBrand>
         {routes.map((route) => (
-          <NavbarItem isActive={route.active}>
+          <NavbarItem key={route.label} isActive={route.active}>
             <Link
               className={cn(
                 "text-foreground",

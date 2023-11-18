@@ -1,3 +1,4 @@
+import Container from "@/components/container";
 import Navbar from "./components/navbar";
 
 export const metadata = {
@@ -11,7 +12,10 @@ export default function RootLayout({
 }) {
   return (
     <div className="h-full">
-      <Navbar /> <div className="w-full pt-4">{children}</div>
+      <Navbar />
+      <div className="inset-0 flex w-full pt-4">
+        <Container>{children}</Container>
+      </div>
     </div>
   );
 }
