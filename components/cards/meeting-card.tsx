@@ -6,6 +6,7 @@ import { Calendar, Dot, Gauge, MoveRight, Sigma, Users } from "lucide-react";
 import { Meeting } from "@prisma/client";
 import { format } from "date-fns";
 import FR from "date-fns/locale/fr";
+import Link from "next/link";
 
 interface Props {
   props: {
@@ -35,9 +36,12 @@ export default function CardMeeting({ props }: Props) {
           </div>
         </div>
         <p className="text-sm text-foreground-400">{meeting.description}</p>
-        <div className="ml-auto flex cursor-pointer gap-x-2 text-secondary">
+        <Link
+          href={`/meeting/${meeting.shareLink}`}
+          className="ml-auto flex cursor-pointer gap-x-2 text-secondary"
+        >
           Voir en détail <MoveRight />
-        </div>
+        </Link>
       </CardBody>
     </Card>
   );

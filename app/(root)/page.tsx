@@ -54,7 +54,7 @@ export default async function Home() {
           <span className="text-sm font-medium text-blue-500">Voir tout</span>
         </div>
         {meetings.map((meeting) => (
-          <CardMeeting props={{ meeting }} />
+          <CardMeeting key={meeting.id} props={{ meeting }} />
         ))}
       </section>
       <div className="fixed inset-x-0 bottom-4 px-6">

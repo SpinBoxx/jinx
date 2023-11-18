@@ -26,9 +26,8 @@ const RegisterPage = async () => {
             Créer un compte
           </span>
           <span className="mt-3 text-center text-sm  text-muted-foreground">
-            Entrez votre email, votre nom d'utilisateur votre mot de passe
-            ci-dessous puis cliquez sur le bouton "Créer un compte".e bouton
-            "Créer un compte"e bouton "Créer un compte"
+            Entrez votre email, votre nom d&apos;utilisateur votre mot de passe
+            ci-dessous puis cliquez sur le bouton &quot;Créer un compte&quot;
           </span>
 
           <AuthForm className="mt-6 w-full" />

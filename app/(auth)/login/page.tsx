@@ -20,7 +20,7 @@ const LoginPage = async () => {
           <span className="text-center text-2xl  font-bold">Se connecter</span>
           <span className="mt-3 text-center text-sm  text-muted-foreground">
             Entrez votre email et votre mot de passe ci-dessous puis cliquez sur
-            le bouton "Se connecter"
+            le bouton `&quot;Se connecter`&quot;
           </span>
 
           <AuthForm className="mt-6 w-full" />

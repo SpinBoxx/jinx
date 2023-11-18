@@ -24,7 +24,7 @@ const ModalShareMeetingLink = () => {
   const urlToCopy = `${origin}/meeting/${shareLink}`;
   const onCopy = () => {
     setIsCopied(true);
-    navigator.clipboard.writeText(shareLink);
+    navigator.clipboard.writeText(urlToCopy);
     toast.success("Le lien a bien été copié !");
     setTimeout(() => setIsCopied(false), 1000);
   };
@@ -51,8 +51,9 @@ const ModalShareMeetingLink = () => {
             <Divider />
             <ModalBody>
               <p className="text-foreground-500">
-                Ce lien unique vous permettra d'inviter les personnes présentes
-                dans cette réunion pour jauger l'utilité de votre réunion.
+                Ce lien unique vous permettra d&apos;inviter les personnes
+                présentes dans cette réunion pour jauger l&apos;utilité de votre
+                réunion.
               </p>
               <div className="flex flex-row gap-x-8">
                 <a href="mailto:" className="w-fit space-y-2">
