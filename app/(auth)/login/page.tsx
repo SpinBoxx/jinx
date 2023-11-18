@@ -9,10 +9,6 @@ export const metadata: Metadata = {
 };
 
 const LoginPage = async () => {
-  // const session = await getSession();
-  // if (session?.user?.email) {
-  //   redirect("/");
-  // }
   return (
     <div className="flex h-full flex-col items-center justify-center ">
       <div className="flex w-fit flex-col items-center justify-center rounded-md bg-gradient-to-tr from-gray-50 to-neutral-50 px-10 py-14 shadow">

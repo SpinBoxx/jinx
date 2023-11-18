@@ -3,9 +3,25 @@ import { authConfig } from "./auth.config";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { PrismaClient, User as PrismaUser } from "@prisma/client";
+import { PrismaClient, User as PrismaUser, User } from "@prisma/client";
 import bcryptjs from "bcryptjs";
 import prismadb from "./lib/prismadb";
+
+declare module "next-auth" {
+  /**
+   * Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
+   */
+  // interface Session {
+  //   user: {
+  //     /** The user's postal address. */
+  //   } & DefaultSession["user"] &
+  //     User;
+  // }
+  interface Session {
+    expires: string;
+    user?: User;
+  }
+}
 
 async function getUser(email: string): Promise<PrismaUser | null> {
   try {
@@ -30,7 +46,7 @@ export const {
 } = NextAuth({
   ...authConfig,
   adapter: PrismaAdapter(prisma),
-  session: { strategy: "jwt" },
+
   providers: [
     Credentials({
       // @ts-ignore
@@ -66,4 +82,20 @@ export const {
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      // Persist the OAuth access_token to the token right after signin
+      if (user) {
+        token.user = user;
+      }
+      return token;
+    },
+    async session({ session, token, user }) {
+      session.user = token.user as User;
+      return session;
+    },
+  },
+  debug: process.env.NODE_ENV === "development",
+  session: { strategy: "jwt" },
+  secret: process.env.NEXTAUTH_SECRET,
 });
