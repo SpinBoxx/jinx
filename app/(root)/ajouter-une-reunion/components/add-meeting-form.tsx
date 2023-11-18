@@ -34,6 +34,8 @@ import { Calendar } from "@/components/ui/calendar";
 import { fetchCustom } from "@/lib/fetch-custom";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { useShareMeetingLink } from "@/hooks/use-share-meeting-link";
+import { Meeting } from "@prisma/client";
 
 interface Props {
   className: string;
@@ -46,6 +48,7 @@ const FormAddMeeting = ({ className }: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
+  const { setShareLink, shareLink, toggleModalOpen } = useShareMeetingLink();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
@@ -59,10 +62,12 @@ const FormAddMeeting = ({ className }: Props) => {
       method: "POST",
       body: JSON.stringify({ ...values, when: new Date(when) }),
     });
-    const data = await response.json();
+    const data: { meeting: Meeting; message: string } = await response.json();
     if (response.ok) {
       toast.success(data.message);
-      router.push("/");
+      setShareLink(data.meeting.shareLink);
+      toggleModalOpen();
+      // router.push("/");
     } else {
       toast.error(data.message);
     }
@@ -197,6 +202,9 @@ const FormAddMeeting = ({ className }: Props) => {
             </FormItem>
           )}
         />
+        <Button type="button" onClick={toggleModalOpen}>
+          fe
+        </Button>
         <Button
           type="submit"
           variant="secondary"

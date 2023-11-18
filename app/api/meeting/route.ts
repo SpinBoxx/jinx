@@ -5,11 +5,13 @@ import { zodCheckParse } from "@/services/utils";
 import { meetingSchema } from "@/types/meeting";
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import crypto from "crypto";
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
     const session = await auth();
+
     if (!session)
       return NextResponse.json(
         {
@@ -36,9 +38,10 @@ export async function POST(request: Request) {
       description,
       when,
       participants,
+      shareLink: crypto.randomBytes(16).toString("hex"),
     };
 
-    const newMeeting = await prismadb.meeting.create({
+    const meeting = await prismadb.meeting.create({
       data: {
         ...newBody,
         creator: {
@@ -50,7 +53,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({
-      newMeeting,
+      meeting,
       message: "Meeting créé avec succès !",
     });
   } catch (e) {

@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Toaster } from "react-hot-toast";
 import { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
+import ModalShareMeetingLink from "@/components/modals/share-meeting-link-modal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,6 +40,7 @@ export default function RootLayout({
           <NextUIProvider>
             <div className="h-[100vh]">{children}</div>
             <Toaster />
+            <ModalShareMeetingLink />
           </NextUIProvider>
         </SessionProvider>
       </body>
