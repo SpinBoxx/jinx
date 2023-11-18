@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Card, CardBody } from "@nextui-org/react";
-import { Calendar, Dot, MoveRight, Sigma, Users } from "lucide-react";
+import { Calendar, Dot, Gauge, MoveRight, Sigma, Users } from "lucide-react";
 
 interface Props {
   data: {
@@ -27,7 +27,7 @@ export default function CardMeeting() {
           </div>
           <Dot />
           <div className="flex items-center gap-x-2">
-            <Sigma className="h-4 w-4" /> 10/10
+            <Gauge className="h-5 w-5" /> 10/10
           </div>
         </div>
         <p className="text-sm text-foreground-400">

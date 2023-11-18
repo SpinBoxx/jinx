@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import CardHero from "./components/card-hero";
 import CardStats from "@/components/cards/stats-card";
-import { LineChart, Plus, PlusCircle, Sigma, TrendingUp } from "lucide-react";
+import { Gauge, LineChart, Plus, PlusCircle, TrendingUp } from "lucide-react";
 import { Button, Chip, Link } from "@nextui-org/react";
 import CardMeeting from "@/components/cards/meeting-card";
 
@@ -35,7 +35,7 @@ export default function Home() {
             title: "Score moyen de mes réunions",
             stat: "6/10",
             statIcon: <TrendingUp strokeWidth={3} className="mr-2" />,
-            rightIcon: <Sigma />,
+            rightIcon: <Gauge />,
             statBonus: (
               <Chip className="flex bg-green-100  text-green-500">
                 Moyenne sur 31 votants
