@@ -56,7 +56,6 @@ const FormAddMeeting = ({ className }: Props) => {
 
     when.setHours(hours);
     when.setMinutes(minutes);
-    console.log(when);
 
     const response = await fetchCustom("/meeting", {
       method: "POST",
@@ -67,12 +66,11 @@ const FormAddMeeting = ({ className }: Props) => {
       toast.success(data.message);
       setShareLink(data.meeting.shareLink);
       toggleModalOpen();
-      // router.push("/");
+      router.push("/");
     } else {
       toast.error(data.message);
     }
     setLoading(false);
-    console.log(values);
   }
 
   return (
@@ -202,9 +200,7 @@ const FormAddMeeting = ({ className }: Props) => {
             </FormItem>
           )}
         />
-        <Button type="button" onClick={toggleModalOpen}>
-          fe
-        </Button>
+
         <Button
           type="submit"
           variant="secondary"
