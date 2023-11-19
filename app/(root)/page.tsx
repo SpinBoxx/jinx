@@ -10,6 +10,8 @@ export const metadata: Metadata = {
   title: "Jinx",
 };
 
+export const revalidate = 0;
+
 export default async function Home() {
   const meetings = await prismadb.meeting.findMany();
   return (
