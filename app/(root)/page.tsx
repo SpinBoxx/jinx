@@ -13,7 +13,11 @@ export const metadata: Metadata = {
 export const revalidate = 0;
 
 export default async function Home() {
-  const meetings = await prismadb.meeting.findMany();
+  const meetings = await prismadb.meeting.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
   return (
     <div className="space-y-8 pb-20">
       <section id="header" className="w-full space-y-4">
