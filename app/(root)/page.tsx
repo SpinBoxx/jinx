@@ -21,7 +21,7 @@ export default async function Home() {
         <CardStats
           data={{
             title: "Nb de réunion créée",
-            stat: "12",
+            stat: meetings.length.toString(),
             statIcon: <Plus strokeWidth={4} />,
             rightIcon: <LineChart />,
             statBonus: (
