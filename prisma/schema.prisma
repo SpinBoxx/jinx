@@ -17,6 +17,7 @@ model User {
   password String
 
   meetings Meeting[]
+  meetingVotes MeetingVote[]
 }
 
 
@@ -29,7 +30,21 @@ model Meeting {
   createdAt DateTime @default(now())
   when DateTime
   shareLink String @unique
+  voteRoomLink String @unique
  
   creator User @relation(fields: [creatorId], references: [id])
   creatorId Int
+  meetingVote MeetingVote[]
+}
+
+
+model MeetingVote {
+  id    Int     @id @default(autoincrement())
+
+  note Int 
+
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  meeting Meeting @relation(fields: [meetingId], references: [id])
+  meetingId Int
 }

@@ -6,6 +6,8 @@ import { meetingSchema } from "@/types/meeting";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import crypto from "crypto";
+import { Meeting } from "@prisma/client";
+import { uniqueLinkLength } from "@/global-variables";
 
 export async function POST(request: Request) {
   try {
@@ -30,15 +32,17 @@ export async function POST(request: Request) {
         { status: 401 }
       );
 
-    const { title, description, when, hours, minutes, participants } =
-      body as z.infer<typeof meetingSchema>;
+    const { title, description, when, participants } = body as z.infer<
+      typeof meetingSchema
+    >;
 
     const newBody = {
       title,
       description,
       when,
       participants,
-      shareLink: crypto.randomBytes(16).toString("hex"),
+      shareLink: crypto.randomBytes(uniqueLinkLength).toString("hex"),
+      voteRoomLink: crypto.randomBytes(uniqueLinkLength).toString("hex"),
     };
 
     const meeting = await prismadb.meeting.create({

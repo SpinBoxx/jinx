@@ -67,7 +67,8 @@ const MeetingDetail = async ({ params }: Props) => {
             Les commentaires
           </p>
           <Card>
-            <p>Bonjour</p>
+            <p>{meeting.voteRoomLink}</p>
+            <p>{meeting.shareLink}</p>
           </Card>
         </div>
       </div>

@@ -31,3 +31,12 @@ export const meetingSchema = z.object({
   hours: z.coerce.number().min(0).max(24),
   minutes: z.coerce.number().min(0).max(59),
 });
+
+// CONST FOR MEETING VOTE
+
+export const meetingVoteMinValue = 0;
+export const meetingVoteMaxValue = 10;
+export const meetingVoteStepValue = 1;
+export const meetingVoteSchema = z.object({
+  note: z.number().min(meetingVoteMinValue).max(meetingVoteMaxValue),
+});

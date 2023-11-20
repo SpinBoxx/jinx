@@ -1,18 +1,18 @@
 import { create } from "zustand";
 
 interface ShareMeetingLinkInterface {
-  shareLink: string;
+  voteRoomLink: string;
   isModalOpen: boolean;
-  setShareLink: (shareLink: string) => void;
+  setVoteRoomLink: (voteRoomLink: string) => void;
   toggleModalOpen: () => void;
 }
 
 export const useShareMeetingLink = create<ShareMeetingLinkInterface>(
   (set, get) => ({
-    shareLink: "",
+    voteRoomLink: "",
     isModalOpen: false,
-    setShareLink: (shareLink: string) => {
-      set({ shareLink });
+    setVoteRoomLink: (voteRoomLink: string) => {
+      set({ voteRoomLink });
     },
     toggleModalOpen: () => set({ isModalOpen: !get().isModalOpen }),
   })

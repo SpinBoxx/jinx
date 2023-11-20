@@ -48,7 +48,7 @@ const FormAddMeeting = ({ className }: Props) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
-  const { setShareLink, shareLink, toggleModalOpen } = useShareMeetingLink();
+  const { setVoteRoomLink, toggleModalOpen } = useShareMeetingLink();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
@@ -64,7 +64,7 @@ const FormAddMeeting = ({ className }: Props) => {
     const data: { meeting: Meeting; message: string } = await response.json();
     if (response.ok) {
       toast.success(data.message);
-      setShareLink(data.meeting.shareLink);
+      setVoteRoomLink(data.meeting.shareLink);
       toggleModalOpen();
       router.push("/");
     } else {

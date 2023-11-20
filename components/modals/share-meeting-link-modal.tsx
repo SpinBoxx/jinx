@@ -17,11 +17,11 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 const ModalShareMeetingLink = () => {
-  const { isModalOpen, toggleModalOpen, shareLink } = useShareMeetingLink();
+  const { isModalOpen, toggleModalOpen, voteRoomLink } = useShareMeetingLink();
   const origin = useOrigin();
   const [isCopied, setIsCopied] = useState(false);
 
-  const urlToCopy = `${origin}/meeting/${shareLink}`;
+  const urlToCopy = `${origin}/meeting/vote-room/${voteRoomLink}`;
   const onCopy = () => {
     setIsCopied(true);
     navigator.clipboard.writeText(urlToCopy);
@@ -46,7 +46,7 @@ const ModalShareMeetingLink = () => {
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-col gap-1">
-              Partager le salon
+              Partager le salon de vote
             </ModalHeader>
             <Divider />
             <ModalBody>
