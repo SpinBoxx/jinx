@@ -1,5 +1,7 @@
 "use client";
 
+import { getMeetingVotes } from "@/actions/getMeetingVote";
+import { api } from "@/convex/_generated/api";
 import { fetchCustom } from "@/lib/fetch-custom";
 import { cn } from "@/lib/utils";
 import { ApiResponse } from "@/types/api-response";
@@ -9,36 +11,31 @@ import {
   meetingVoteStepValue,
 } from "@/types/meeting";
 import { Button, Slider, SliderValue } from "@nextui-org/react";
-import { MeetingVote } from "@prisma/client";
+import { useMutation } from "convex/react";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 
 interface Props {
   className?: string;
   voteRoomId: string;
+  meetingId: number;
 }
 
-const SliderVote = ({ className, voteRoomId }: Props) => {
+const SliderVote = ({ className, voteRoomId, meetingId }: Props) => {
   const [value, setValue] = useState<SliderValue>(5);
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = async () => {
+  const createVote = useMutation(api.meetingVote.createMeetingVote);
+
+  const onSubmit = () => {
     setLoading(true);
-    const response = await fetchCustom(`/meeting/room-vote/${voteRoomId}`, {
-      method: "POST",
-      body: JSON.stringify({ note: value }),
-    });
-    const data: ApiResponse<MeetingVote> = await response.json();
-    if (response.ok) {
-      console.log(data);
-    }
-    console.log(value);
+    createVote({ meetingId, note: value.valueOf() as number });
     setLoading(false);
   };
 
   return (
     <div className="space-y-6">
-      <p>Jugez-vous utile cette reunion (0 pas du tout, 10 beaucoup)</p>
+      <p>Jugez-vous utile cette reunion (0 pas du tout, 10 beaucoup) </p>
       <Slider
         label="0"
         value={value}

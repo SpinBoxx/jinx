@@ -6,6 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import ModalShareMeetingLink from "@/components/modals/share-meeting-link-modal";
+import ConvexClientProvider from "@/providers/convex-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,7 +39,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <SessionProvider>
           <NextUIProvider>
-            <div className="h-[100vh]">{children}</div>
+            <ConvexClientProvider>
+              <div className="h-[100vh]">{children}</div>
+            </ConvexClientProvider>
             <Toaster />
             <ModalShareMeetingLink />
           </NextUIProvider>

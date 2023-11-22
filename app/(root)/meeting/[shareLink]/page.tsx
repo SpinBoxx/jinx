@@ -6,6 +6,7 @@ import { Presentation, User } from "lucide-react";
 import { redirect } from "next/navigation";
 import { Gauge } from "./components/gauge";
 import { Card } from "@nextui-org/react";
+import ButtonOpenVoteRoom from "./components/open-vote-room-button";
 
 interface Props {
   params: {
@@ -21,10 +22,16 @@ const MeetingDetail = async ({ params }: Props) => {
     },
     include: {
       creator: true,
+      meetingVote: true,
     },
   });
 
   if (!meeting) redirect("/");
+
+  const value = meeting?.meetingVote.reduce(
+    (res, vote) => (res += vote.note),
+    0
+  );
 
   return (
     <div>
@@ -55,11 +62,18 @@ const MeetingDetail = async ({ params }: Props) => {
           </div>
         </div>
         <div className="!mt-12 space-y-4">
-          <p className="text-2xl font-bold tracking-tight text-secondary">
-            Jauge en temps réel
-          </p>
+          <div className="flex justify-between">
+            <p className="text-2xl font-bold tracking-tight text-secondary">
+              Jauge en temps réel
+            </p>
+            <ButtonOpenVoteRoom voteRoomId={meeting.voteRoomLink} />
+          </div>
+
           <Card>
-            <Gauge value={40} />
+            <Gauge
+              meetingId={meeting.id}
+              value={value / meeting.meetingVote.length}
+            />
           </Card>
         </div>
         <div className="!mt-12 space-y-4">

@@ -18,7 +18,7 @@ const Header = ({ data }: Props) => {
         ) : null}
       </div>
 
-      <p className="text-lg tracking-tight text-muted-foreground">
+      <p className="text-sm tracking-tight text-muted-foreground">
         {data.description}
       </p>
     </div>

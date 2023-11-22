@@ -29,7 +29,7 @@ const MeetingVoteRoomPage = async ({ params }: Props) => {
       <Header data={{ title: meeting.title }} />
       <div className="mt-4 space-y-4">
         <CardInfo />
-        <SliderVote voteRoomId={params.voteRoomId} />
+        <SliderVote meetingId={meeting.id} voteRoomId={params.voteRoomId} />
       </div>
     </div>
   );

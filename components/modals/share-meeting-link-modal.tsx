@@ -65,11 +65,9 @@ const ModalShareMeetingLink = () => {
                   </Button>
                   <p className="select-none text-center">Email</p>
                 </a>
-                <div
-                  className="w-fit cursor-pointer space-y-2"
-                  onClick={onCopy}
-                >
+                <div className="w-fit cursor-pointer space-y-2">
                   <Button
+                    onClick={onCopy}
                     disabled={isCopied}
                     isIconOnly
                     className="flex h-14 w-14 items-center justify-center rounded-full bg-secondary"
