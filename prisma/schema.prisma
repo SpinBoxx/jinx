@@ -31,6 +31,7 @@ model Meeting {
   when DateTime
   shareLink String @unique
   voteRoomLink String @unique
+  showGaugeInVoteRoom Boolean @default(false)
  
   creator User @relation(fields: [creatorId], references: [id])
   creatorId Int

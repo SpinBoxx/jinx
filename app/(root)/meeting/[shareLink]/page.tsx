@@ -2,11 +2,19 @@ import Header from "@/components/header";
 import prismadb from "@/lib/prismadb";
 import { format } from "date-fns";
 import FR from "date-fns/locale/fr";
-import { Presentation, User } from "lucide-react";
+import { MoreVertical, Presentation, User } from "lucide-react";
 import { redirect } from "next/navigation";
 import { Gauge } from "./components/gauge";
-import { Card } from "@nextui-org/react";
+import {
+  Card,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/react";
 import ButtonOpenVoteRoom from "./components/open-vote-room-button";
+import DropdownSettings from "./components/dropdown-settings";
+import ModalShowMeetingSettings from "./components/modal-show-meeting-settings";
 
 interface Props {
   params: {
@@ -35,9 +43,13 @@ const MeetingDetail = async ({ params }: Props) => {
 
   return (
     <div>
-      <Header
-        data={{ title: meeting.title, description: meeting.description }}
-      />
+      <div className="flex items-start justify-between gap-x-8 lg:items-end">
+        <Header
+          data={{ title: meeting.title, description: meeting.description }}
+        />
+        <DropdownSettings meeting={meeting} />
+      </div>
+
       <div className="mt-8 space-y-4">
         <div className="flex items-center gap-x-4">
           <div className="flex items-center justify-center rounded-lg bg-secondary/30 p-3 backdrop-blur-lg">
@@ -80,12 +92,9 @@ const MeetingDetail = async ({ params }: Props) => {
           <p className="text-2xl font-bold tracking-tight text-secondary">
             Les commentaires
           </p>
-          <Card>
-            <p>{meeting.voteRoomLink}</p>
-            <p>{meeting.shareLink}</p>
-          </Card>
         </div>
       </div>
+      <ModalShowMeetingSettings />
     </div>
   );
 };
