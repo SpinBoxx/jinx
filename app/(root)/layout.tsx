@@ -13,7 +13,7 @@ export default function RootLayout({
   return (
     <div className="h-full">
       <Navbar />
-      <div className="inset-0 flex w-full pt-4">
+      <div className="inset-0 flex w-full justify-center pt-4">
         <Container>{children}</Container>
       </div>
     </div>
