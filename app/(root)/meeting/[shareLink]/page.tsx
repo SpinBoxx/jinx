@@ -15,6 +15,7 @@ import {
 import ButtonOpenVoteRoom from "./components/open-vote-room-button";
 import DropdownSettings from "./components/dropdown-settings";
 import ModalShowMeetingSettings from "./components/modal-show-meeting-settings";
+import CommentSection from "./components/comments-section";
 
 interface Props {
   params: {
@@ -85,10 +86,8 @@ const MeetingDetail = async ({ params }: Props) => {
             <Gauge meetingId={meeting.id} />
           </Card>
         </div>
-        <div className="!mt-12 space-y-4">
-          <p className="text-2xl font-bold tracking-tight text-secondary">
-            Les commentaires
-          </p>
+        <div className="!mt-12 ">
+          <CommentSection meetingId={meeting.id} />
         </div>
       </div>
       <ModalShowMeetingSettings />

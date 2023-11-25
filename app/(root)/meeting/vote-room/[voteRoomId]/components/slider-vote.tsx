@@ -9,7 +9,14 @@ import {
   meetingVoteMinValue,
   meetingVoteStepValue,
 } from "@/types/meeting";
-import { Button, Card, CardBody, Slider, SliderValue } from "@nextui-org/react";
+import {
+  Button,
+  Card,
+  CardBody,
+  Slider,
+  SliderValue,
+  Textarea,
+} from "@nextui-org/react";
 import { useMutation } from "convex/react";
 import { CheckCircle, Loader2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -55,7 +62,11 @@ const SliderVoteForm = ({ className, voteRoomId, meetingId }: Props) => {
           body: JSON.stringify({ captchaValue }),
         });
         if (response.ok) {
-          createVote({ meetingId, note: value.valueOf() as number });
+          createVote({
+            meetingId,
+            note: value.valueOf() as number,
+            comment: formData.get("comment") as string,
+          });
           toast.success("Vote envoyé avec succès !");
           localStorage.setItem("votedFor", JSON.stringify([voteRoomId]));
           setAlreadyVoted(true);
@@ -88,6 +99,10 @@ const SliderVoteForm = ({ className, voteRoomId, meetingId }: Props) => {
               maxValue={meetingVoteMaxValue}
               minValue={meetingVoteMinValue}
               className={cn(className, "")}
+            />
+            <Textarea
+              name="comment"
+              placeholder="Vous pouvez envoyer un commentaire (Facultatif)"
             />
             <ReCAPTCHA
               ref={recaptcha}
