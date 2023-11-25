@@ -79,8 +79,8 @@ const ChatGPTForm = ({ className, user }: Props) => {
               </FormControl>
               <FormDescription>
                 Le texte qui sera entré dans ce champ sera renvoyé
-                automatiquement avec l'export qui retourne tous les commentaires
-                d'une réunion
+                automatiquement avec l&apos;export qui retourne tous les
+                commentaires d&apos;une réunion
               </FormDescription>
               <FormMessage />
             </FormItem>
