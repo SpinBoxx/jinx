@@ -2,6 +2,7 @@
 import { useModalMeetingSettings } from "@/hooks/use-modal-meeting-settings.tsx";
 import { useOrigin } from "@/hooks/use-origin";
 import { useShareMeetingLink } from "@/hooks/use-share-meeting-link";
+import { useWindowWidth } from "@/hooks/use-window-width";
 import { fetchCustom } from "@/lib/fetch-custom";
 import { cn } from "@/lib/utils";
 import { ApiResponse } from "@/types/api-response";
@@ -17,7 +18,7 @@ import {
   Switch,
 } from "@nextui-org/react";
 
-import { Copy, CopyCheck, Mail, Paperclip, X } from "lucide-react";
+import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -25,10 +26,10 @@ const ModalShowMeetingSettings = () => {
   const { isModalOpen, toggleModalOpen, meeting } = useModalMeetingSettings();
   const [isMobile, setIsMobile] = useState(false);
   const [showGauge, setShowGauge] = useState(false);
-
+  const windowWidth = useWindowWidth();
   useEffect(() => {
-    setIsMobile(window.innerWidth < 648);
-  }, [window.innerWidth]);
+    if (windowWidth) setIsMobile(windowWidth < 648);
+  }, [windowWidth]);
 
   useEffect(() => {
     if (meeting) setShowGauge(meeting.showGaugeInVoteRoom);

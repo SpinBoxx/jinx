@@ -1,6 +1,7 @@
 "use client";
 import { useOrigin } from "@/hooks/use-origin";
 import { useShareMeetingLink } from "@/hooks/use-share-meeting-link";
+import { useWindowWidth } from "@/hooks/use-window-width";
 import { cn } from "@/lib/utils";
 import {
   Modal,
@@ -21,10 +22,10 @@ const ModalShareMeetingLink = () => {
   const origin = useOrigin();
   const [isMobile, setIsMobile] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-
+  const windowWidth = useWindowWidth();
   useEffect(() => {
-    setIsMobile(window.innerWidth < 648);
-  }, [window.innerWidth]);
+    if (windowWidth) setIsMobile(windowWidth < 648);
+  }, [windowWidth]);
 
   const urlToCopy = `${origin}/meeting/vote-room/${voteRoomLink}`;
   const onCopy = () => {

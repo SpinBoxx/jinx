@@ -34,7 +34,7 @@ const CommentSection = ({ meetingId }: Props) => {
 
       <div className="mt-4">
         {meetingVotes?.map((meetingVote, index, { length }) => (
-          <div className="flex flex-col ">
+          <div key={index} className="flex flex-col">
             <div className="flex items-center gap-x-1">
               <span className="text-lg font-semibold">{"Anonyme"}</span>
               <Dot className="h-5 w-5 text-muted-foreground" />
