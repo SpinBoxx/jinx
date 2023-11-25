@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { getDatetimeFromTimestamp } from "@/services/utils";
 import { Chip, Divider } from "@nextui-org/react";
 import { useQuery } from "convex/react";
-import { fromUnixTime, formatDistance } from "date-fns";
+import { formatDistance } from "date-fns";
 import FR from "date-fns/locale/fr";
 import { Dot, Download, GanttChartSquare, MoreVertical } from "lucide-react";
 import {
@@ -16,30 +16,36 @@ import {
 } from "@nextui-org/react";
 
 interface Props {
-  meetingId: number;
-  meetingTitle: string;
+  props: {
+    meetingId: number;
+    meetingTitle: string;
+    commentCustomModelChatGPT: string;
+  };
 }
 
-const CommentSection = ({ meetingId, meetingTitle }: Props) => {
+const CommentSection = ({ props }: Props) => {
+  const { commentCustomModelChatGPT, meetingId, meetingTitle } = props;
   const meetingVotes = useQuery(api.meetingVote.getMeetingVotes, {
     meetingId: meetingId,
   });
 
-  const onDownloadComments = () => {
-    const comments = meetingVotes?.map((meetingVote) => meetingVote.comment);
+  const formattedData = (modele?: string | undefined) => {
+    const comments = meetingVotes
+      ?.map((meetingVote) => meetingVote.comment)
+      .join(", ");
+    return modele ? modele + " " + comments : comments;
+  };
+
+  const onDownloadComments = (data: string = "") => {
     var element = document.createElement("a");
     element.setAttribute(
       "href",
-      "data:text/plain;charset=utf-8," +
-        encodeURIComponent(comments?.join(", ") ?? "")
+      "data:text/plain;charset=utf-8," + encodeURIComponent(data)
     );
     element.setAttribute("download", `Commentaires-${meetingTitle}.txt`);
-
     element.style.display = "none";
     document.body.appendChild(element);
-
     element.click();
-
     document.body.removeChild(element);
   };
 
@@ -66,24 +72,42 @@ const CommentSection = ({ meetingId, meetingTitle }: Props) => {
           <DropdownMenu aria-label="Custom item styles">
             <DropdownItem
               startContent={<Download className="h-4 w-4 flex-none" />}
-              onClick={onDownloadComments}
+              onClick={() => {
+                onDownloadComments(formattedData());
+              }}
               key="only"
               className="items-start "
             >
               <span className="whitespace-normal">
-                Télécharger les commentaires pour les analyser sur ChatGPT
+                1. Télécharger les commentaires pour les analyser sur ChatGPT
               </span>
             </DropdownItem>
 
             <DropdownItem
               startContent={<Download className="h-4 w-4" />}
-              onClick={onDownloadComments}
+              onClick={() => {
+                onDownloadComments(formattedData("TEST PAR DEFAULKT"));
+              }}
               key="default"
               className="items-start"
             >
               <span className="whitespace-normal">
-                Télécharger les commentaires avec un modèle{" "}
+                2. Télécharger les commentaires avec un modèle{" "}
                 <span className="font-semibold">par defaut</span> pour les
+                analyser sur ChatGPT
+              </span>
+            </DropdownItem>
+            <DropdownItem
+              startContent={<Download className="h-4 w-4" />}
+              onClick={() => {
+                onDownloadComments(formattedData(commentCustomModelChatGPT));
+              }}
+              key="default"
+              className="items-start"
+            >
+              <span className="whitespace-normal">
+                3. Télécharger les commentaires avec{" "}
+                <span className="font-semibold">mon modèle</span> pour les
                 analyser sur ChatGPT
               </span>
             </DropdownItem>

@@ -16,6 +16,7 @@ import ButtonOpenVoteRoom from "./components/open-vote-room-button";
 import DropdownSettings from "./components/dropdown-settings";
 import ModalShowMeetingSettings from "./components/modal-show-meeting-settings";
 import CommentSection from "./components/comments-section";
+import { auth } from "@/auth";
 
 interface Props {
   params: {
@@ -25,6 +26,8 @@ interface Props {
 export const revalidate = 0;
 
 const MeetingDetail = async ({ params }: Props) => {
+  const session = await auth();
+
   const meeting = await prismadb.meeting.findFirst({
     where: {
       shareLink: params.shareLink,
@@ -87,7 +90,14 @@ const MeetingDetail = async ({ params }: Props) => {
           </Card>
         </div>
         <div className="!mt-12 ">
-          <CommentSection meetingTitle={meeting.title} meetingId={meeting.id} />
+          <CommentSection
+            props={{
+              meetingId: meeting.id,
+              meetingTitle: meeting.title,
+              commentCustomModelChatGPT:
+                session?.user?.commentCustomModelChatGPT ?? "",
+            }}
+          />
         </div>
       </div>
       <ModalShowMeetingSettings />

@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Import, LogOut, Settings, User } from "lucide-react";
+import { Home, Import, LogOut, Settings, Settings2, User } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
@@ -15,6 +15,12 @@ export const useUserDropdownRoutes = () => {
         href: "/mon-profil",
         active: pathname === "/mon-profil",
         icon: User,
+      },
+      {
+        label: "Voir mes préférences",
+        href: "/mes-preferences",
+        active: pathname === "/mes-preferences",
+        icon: Settings2,
       },
       {
         onClick: async () => signOut({ callbackUrl: "/login" }),
