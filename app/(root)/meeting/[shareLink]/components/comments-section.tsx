@@ -7,13 +7,14 @@ import { Chip, Divider } from "@nextui-org/react";
 import { useQuery } from "convex/react";
 import { formatDistance } from "date-fns";
 import FR from "date-fns/locale/fr";
-import { Dot, Download, GanttChartSquare, MoreVertical } from "lucide-react";
+import { Copy, Dot, MoreVertical } from "lucide-react";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
 } from "@nextui-org/react";
+import toast from "react-hot-toast";
 
 interface Props {
   props: {
@@ -36,17 +37,8 @@ const CommentSection = ({ props }: Props) => {
     return modele ? modele + " " + comments : comments;
   };
 
-  const onDownloadComments = (data: string = "") => {
-    var element = document.createElement("a");
-    element.setAttribute(
-      "href",
-      "data:text/plain;charset=utf-8," + encodeURIComponent(data)
-    );
-    element.setAttribute("download", `Commentaires-${meetingTitle}.txt`);
-    element.style.display = "none";
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
+  const onCopyComments = (data: string = "") => {
+    navigator.clipboard.writeText(data);
   };
 
   return (
@@ -71,9 +63,10 @@ const CommentSection = ({ props }: Props) => {
           </DropdownTrigger>
           <DropdownMenu aria-label="Custom item styles">
             <DropdownItem
-              startContent={<Download className="h-4 w-4 flex-none" />}
+              startContent={<Copy className="h-4 w-4 flex-none" />}
               onClick={() => {
-                onDownloadComments(formattedData());
+                onCopyComments(formattedData());
+                toast.success("Les commentaires ont bien été copiés");
               }}
               key="only"
               className="items-start "
@@ -84,9 +77,12 @@ const CommentSection = ({ props }: Props) => {
             </DropdownItem>
 
             <DropdownItem
-              startContent={<Download className="h-4 w-4" />}
+              startContent={<Copy className="h-4 w-4" />}
               onClick={() => {
-                onDownloadComments(formattedData("TEST PAR DEFAULKT"));
+                onCopyComments(formattedData("TEST PAR DEFAULKT"));
+                toast.success(
+                  "Les commentaires ont bien été copiés avec le prompt par défaut"
+                );
               }}
               key="default"
               className="items-start"
@@ -98,9 +94,12 @@ const CommentSection = ({ props }: Props) => {
               </span>
             </DropdownItem>
             <DropdownItem
-              startContent={<Download className="h-4 w-4" />}
+              startContent={<Copy className="h-4 w-4" />}
               onClick={() => {
-                onDownloadComments(formattedData(commentCustomModelChatGPT));
+                onCopyComments(formattedData(commentCustomModelChatGPT));
+                toast.success(
+                  "Les commentaires ont bien été copiés avec votre prompt personnalisé"
+                );
               }}
               key="default"
               className="items-start"
