@@ -87,7 +87,7 @@ const MeetingDetail = async ({ params }: Props) => {
           </Card>
         </div>
         <div className="!mt-12 ">
-          <CommentSection meetingId={meeting.id} />
+          <CommentSection meetingTitle={meeting.title} meetingId={meeting.id} />
         </div>
       </div>
       <ModalShowMeetingSettings />
