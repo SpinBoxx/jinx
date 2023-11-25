@@ -3,6 +3,7 @@ import { Divider } from "@nextui-org/react";
 import ChatGPTForm from "./components/chatgpt-form";
 import { auth } from "@/auth";
 import prismadb from "@/lib/prismadb";
+import { signOut } from "next-auth/react";
 
 const MyPreferencesPage = async () => {
   const session = await auth();
@@ -13,7 +14,7 @@ const MyPreferencesPage = async () => {
     },
   });
 
-  if (!user) return null;
+  if (!user) return signOut();
 
   return (
     <div>

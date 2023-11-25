@@ -17,6 +17,7 @@ import DropdownSettings from "./components/dropdown-settings";
 import ModalShowMeetingSettings from "./components/modal-show-meeting-settings";
 import CommentSection from "./components/comments-section";
 import { auth } from "@/auth";
+import { signOut } from "next-auth/react";
 
 interface Props {
   params: {
@@ -37,6 +38,14 @@ const MeetingDetail = async ({ params }: Props) => {
       meetingVote: true,
     },
   });
+
+  const user = await prismadb.user.findFirst({
+    where: {
+      email: session?.user?.email,
+    },
+  });
+
+  if (!user) return signOut();
 
   if (!meeting) redirect("/");
 
@@ -94,8 +103,7 @@ const MeetingDetail = async ({ params }: Props) => {
             props={{
               meetingId: meeting.id,
               meetingTitle: meeting.title,
-              commentCustomModelChatGPT:
-                session?.user?.commentCustomModelChatGPT ?? "",
+              commentCustomModelChatGPT: user.commentCustomModelChatGPT ?? "",
             }}
           />
         </div>
