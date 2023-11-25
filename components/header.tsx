@@ -9,7 +9,7 @@ interface Props {
 const Header = ({ data }: Props) => {
   return (
     <div>
-      <div className="flex items-end gap-x-2">
+      <div className="flex items-end gap-x-2 [text-wrap:balance]">
         <h2 className="text-2xl font-bold tracking-tight lg:text-3xl">
           {data.title}{" "}
         </h2>

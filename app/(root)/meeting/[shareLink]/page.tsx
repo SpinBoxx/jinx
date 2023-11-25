@@ -75,17 +75,14 @@ const MeetingDetail = async ({ params }: Props) => {
         </div>
         <div className="!mt-12 space-y-4">
           <div className="flex justify-between">
-            <p className="text-2xl font-bold tracking-tight text-secondary">
+            <p className="text-2xl font-bold tracking-tight text-secondary [text-wrap:balance]">
               Jauge en temps réel
             </p>
             <ButtonOpenVoteRoom voteRoomId={meeting.voteRoomLink} />
           </div>
 
           <Card>
-            <Gauge
-              meetingId={meeting.id}
-              value={value / meeting.meetingVote.length}
-            />
+            <Gauge meetingId={meeting.id} />
           </Card>
         </div>
         <div className="!mt-12 space-y-4">

@@ -23,10 +23,17 @@ import toast from "react-hot-toast";
 
 const ModalShowMeetingSettings = () => {
   const { isModalOpen, toggleModalOpen, meeting } = useModalMeetingSettings();
+  const [isMobile, setIsMobile] = useState(false);
   const [showGauge, setShowGauge] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 648);
+  }, [window.innerWidth]);
+
   useEffect(() => {
     if (meeting) setShowGauge(meeting.showGaugeInVoteRoom);
   }, [meeting]);
+
   if (!meeting) return null;
 
   const onSwitchShowGauge = async () => {
@@ -47,7 +54,7 @@ const ModalShowMeetingSettings = () => {
         closeButton: "top-3 right-4",
       }}
       isOpen={isModalOpen}
-      placement="center"
+      placement={isMobile ? "bottom" : "center"}
       onOpenChange={toggleModalOpen}
       closeButton={
         <Button isIconOnly size="sm">
@@ -58,7 +65,7 @@ const ModalShowMeetingSettings = () => {
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
+            <ModalHeader className="flex flex-col gap-1 [text-wrap:balance]">
               Partager le salon de vote {meeting.title}
             </ModalHeader>
             <Divider />

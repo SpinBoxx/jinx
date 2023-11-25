@@ -55,7 +55,7 @@ const SliderVoteForm = ({ className, voteRoomId, meetingId }: Props) => {
           body: JSON.stringify({ captchaValue }),
         });
         if (response.ok) {
-          // createVote({ meetingId, note: value.valueOf() as number });
+          createVote({ meetingId, note: value.valueOf() as number });
           toast.success("Vote envoyé avec succès !");
           localStorage.setItem("votedFor", JSON.stringify([voteRoomId]));
           setAlreadyVoted(true);
@@ -112,8 +112,8 @@ const SliderVoteForm = ({ className, voteRoomId, meetingId }: Props) => {
         <div className="mt-8 flex gap-x-4">
           <Card>
             <CardBody>
-              <div className="flex items-end gap-x-4 text-green-500">
-                <CheckCircle className="h-8 w-8 " />
+              <div className="flex items-center gap-x-4 text-green-500">
+                <CheckCircle className="h-8 w-8 flex-none" />
                 <span className="text-xl font-semibold">
                   Vous avez déjà voté pour cette réunion, son créateur en a été
                   notifié.

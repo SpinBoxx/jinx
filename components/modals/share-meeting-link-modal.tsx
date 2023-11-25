@@ -13,13 +13,18 @@ import {
   Input,
 } from "@nextui-org/react";
 import { Copy, CopyCheck, Mail, Paperclip, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 const ModalShareMeetingLink = () => {
   const { isModalOpen, toggleModalOpen, voteRoomLink } = useShareMeetingLink();
   const origin = useOrigin();
+  const [isMobile, setIsMobile] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 648);
+  }, [window.innerWidth]);
 
   const urlToCopy = `${origin}/meeting/vote-room/${voteRoomLink}`;
   const onCopy = () => {
@@ -34,7 +39,7 @@ const ModalShareMeetingLink = () => {
         closeButton: "top-3 right-4",
       }}
       isOpen={isModalOpen}
-      placement="center"
+      placement={isMobile ? "bottom" : "center"}
       onOpenChange={toggleModalOpen}
       closeButton={
         <Button isIconOnly size="sm">
@@ -45,7 +50,7 @@ const ModalShareMeetingLink = () => {
       <ModalContent>
         {(onClose) => (
           <>
-            <ModalHeader className="flex flex-col gap-1">
+            <ModalHeader className="flex flex-col gap-1 [text-wrap:balance]">
               Partager le salon de vote
             </ModalHeader>
             <Divider />
