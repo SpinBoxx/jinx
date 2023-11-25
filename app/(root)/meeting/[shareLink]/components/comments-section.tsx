@@ -118,9 +118,9 @@ const CommentSection = ({ props }: Props) => {
         {meetingVotes?.map((meetingVote, index, { length }) => (
           <div key={index} className="flex flex-col">
             <div className="flex items-center gap-x-1">
-              <span className="text-lg font-semibold">{"Anonyme"}</span>
+              <span className="text-md font-semibold">{"Anonyme"}</span>
               <Dot className="h-5 w-5 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">
+              <span className="text-xs text-muted-foreground">
                 {formatDistance(
                   getDatetimeFromTimestamp(meetingVote._creationTime),
                   Date.now(),
@@ -128,7 +128,9 @@ const CommentSection = ({ props }: Props) => {
                 )}
               </span>
             </div>
-            <div className="text-muted-foreground">{meetingVote.comment}</div>
+            <div className="text-sm text-muted-foreground">
+              {meetingVote.comment}
+            </div>
             {((index === 0 && length !== 1) || index + 1 !== length) && (
               <Divider className={cn("my-4")} />
             )}
